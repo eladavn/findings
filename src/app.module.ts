@@ -11,7 +11,8 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist';
       type: "sqljs",
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoSave: true,
-      location: 'findings.sqlite'
+      location: 'findings.sqlite',
+      synchronize: true
     }),
   ],
   controllers: [AppController],
