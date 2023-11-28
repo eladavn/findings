@@ -14,6 +14,9 @@ export class FindingsService {
         return this.findingRepo.find({
             where: {
                 tenantId: tenantId
+            },
+            relations: {
+                resource: true
             }
         });
     }
