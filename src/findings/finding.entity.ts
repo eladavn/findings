@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column,  } from "typeorm";
 
+
 @Entity()
 export class Finding {
 
@@ -12,3 +13,5 @@ export class Finding {
      @Column()
     type: string;
 }
+
+export type FindingInTenant = Omit<Finding,"tenantId">;

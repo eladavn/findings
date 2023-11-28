@@ -10,7 +10,7 @@ export class FindingsService {
         private findingRepo: Repository<Finding>
     ) {}
 
-    async findByTenantId(tenantId : number) : Promise<Finding[]> {
+    async findAll(tenantId : number) : Promise<Finding[]> {
         return this.findingRepo.find({
             where: {
                 tenantId: tenantId
