@@ -23,7 +23,9 @@ $ npm run start:prod
 * Finding.externalId is unique within tenant but not between tenants. So the unique key of a finding is a composite of tenantId + externalId
 
 ## Limitations
-* Not always returning the correct HTTP error code (e.g. when trying to add duplicate finding an error is returned but not the correct code)
+* Using sql.js instead of real DB to save some "devops" handling.
+* Not always returning the correct HTTP error code (e.g. when trying to add duplicate finding an error is returned but not the correct code).
+* Didn't pay much attention to required and optional fields
 
 ## Test
 
