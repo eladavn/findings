@@ -4,11 +4,11 @@ import { Entity, PrimaryColumn, Column,  } from "typeorm";
 export class Finding {
 
     @PrimaryColumn()
-    externalId: string;
-
-    @PrimaryColumn()
     tenantId: number;
 
-    @Column()
+    @PrimaryColumn()
+    externalId: string;
+
+     @Column()
     type: string;
 }
