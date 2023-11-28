@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "c5ddb0c2-96a2-4c22-ade5-09fe752bfb1c",
+		"name": "Findings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6237968"
+	},
+	"item": [
+		{
+			"name": "localhost:3000",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/tenants/1/findings",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tenants",
+						"1",
+						"findings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/tenants/1/findings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/tenants/1/findings",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tenants",
+						"1",
+						"findings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/tenants/1/findings",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"externalId\": \"lolo\",\r\n        \"type\": \"kkbad\",\r\n        \"resource\":\r\n        {\r\n            \"cloudAccount\": \"bbb\",\r\n            \"uniqueId\": \"sdfs\",\r\n            \"name\": \"moyshe\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tenants/1/findings",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tenants",
+						"1",
+						"findings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
