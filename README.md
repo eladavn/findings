@@ -20,6 +20,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## TBDs
+tenantDBs --> registeredTenants
 Add indices
 Error handling
 

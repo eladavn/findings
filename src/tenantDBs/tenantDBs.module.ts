@@ -7,6 +7,7 @@ import {Finding} from '../findings/finding.entity';
 import {Resource} from '../findings/resource.entity';
 
 import { TenantDB } from './tenantDB.entity';
+import { assert } from 'console';
 
 export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
 
@@ -29,18 +30,31 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
       ],
       scope: Scope.REQUEST,
       useFactory: async (request : Request, rootDataSource : DataSource) => {
-        const tenantDB: TenantDB = await rootDataSource.getRepository(TenantDB).findOne(({ where: { tenantId: parseInt(request.params.tenantId) } }));
+        const tenantsRepo = rootDataSource.getRepository(TenantDB);
+        const requestTenantId = parseInt(request.params.tenantId);
+        let tenantDB: TenantDB = await tenantsRepo.findOne(({ where: { tenantId: requestTenantId } }));
         if (!tenantDB) {
 
-          console.log('No tenant DB found');
+          const registeredTenantsCount = await tenantsRepo.count();
+
+          const unregisteredTenantDbIndex = Math.floor(registeredTenantsCount /3) +1;
+          tenantDB = tenantsRepo.create({
+            tenantId: requestTenantId,
+            dbIndex: unregisteredTenantDbIndex
+          });
+
+          tenantsRepo.save(tenantDB);
 
         };
+
+        const dbName = `findings${tenantDB.dbIndex}.sqlite`;
+        console.log('Using ' + dbName);
 
         const tenantDataSource = new DataSource({
           type: "sqljs",
           entities: [Finding,Resource],
           autoSave: true,
-          location: `findings.sqlite`, //${tenantDB.dbIndex}.sqlite`,
+          location: dbName,
           synchronize: true
         });
         return await tenantDataSource.initialize();
