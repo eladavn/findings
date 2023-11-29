@@ -32,22 +32,31 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
       useFactory: async (request : Request, rootDataSource : DataSource) => {
         const tenantsRepo = rootDataSource.getRepository(TenantDB);
         const requestTenantId = parseInt(request.params.tenantId);
-        let tenantDB: TenantDB = await tenantsRepo.findOne(({ where: { tenantId: requestTenantId } }));
-        if (!tenantDB) {
+        const registeredTenant: TenantDB = await tenantsRepo.findOne(({ where: { tenantId: requestTenantId } }));
+        let dbIndex :number; 
+        if (!registeredTenant) {
 
-          const registeredTenantsCount = await tenantsRepo.count();
+          if (request.method === 'POST') {
+            const registeredTenantsCount = await tenantsRepo.count();
 
-          const unregisteredTenantDbIndex = Math.floor(registeredTenantsCount /3) +1;
-          tenantDB = tenantsRepo.create({
-            tenantId: requestTenantId,
-            dbIndex: unregisteredTenantDbIndex
-          });
+            dbIndex = Math.floor(registeredTenantsCount /3) +1;
+            const newRegisteredTenant = tenantsRepo.create({
+              tenantId: requestTenantId,
+              dbIndex: dbIndex
+            });
+  
+            tenantsRepo.save(newRegisteredTenant);
+          }
+          else {
+            dbIndex = 1;
+          }
 
-          tenantsRepo.save(tenantDB);
+        }
+        else {
+          dbIndex = registeredTenant.dbIndex;
+        }
 
-        };
-
-        const dbName = `findings${tenantDB.dbIndex}.sqlite`;
+        const dbName = `findings${dbIndex}.sqlite`;
         console.log('Using ' + dbName);
 
         const tenantDataSource = new DataSource({

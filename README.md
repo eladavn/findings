@@ -21,6 +21,7 @@ $ npm run start:prod
 ```
 ## TBDs
 tenantDBs --> registeredTenants
+strictNullChecks
 Add indices
 Error handling
 
