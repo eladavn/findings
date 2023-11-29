@@ -12,7 +12,13 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TenantDB]),
+    TypeOrmModule.forRoot({
+      type: "sqljs",
+      entities: [TenantDB],
+      autoSave: true,
+      location: 'tenants.sqlite',
+      synchronize: true
+    }),
   ],
   providers: [
     {
@@ -37,8 +43,7 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
           location: `findings.sqlite`, //${tenantDB.dbIndex}.sqlite`,
           synchronize: true
         });
-        const initializedDataSource = await tenantDataSource.initialize();
-        return initializedDataSource;
+        return await tenantDataSource.initialize();
       }
     }
   ],
