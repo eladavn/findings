@@ -20,7 +20,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## TBDs
-Add indices
+Add all properties
+Review requirements
 Error handling
 Remove tests
 
