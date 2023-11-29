@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { FindingsController } from './findings.controller';
 import { FindingsService } from './findings.service';
-import { RegisteredTenantsModule } from '../tenantDBs/registeredTenants.module';
+import { RegisteredTenantsModule } from '../registeredTenants/registeredTenants.module';
 
 @Module({
   imports: [RegisteredTenantsModule],
