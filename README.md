@@ -20,7 +20,6 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## TBDs
-strictNullChecks
 Add indices
 Error handling
 Remove tests
