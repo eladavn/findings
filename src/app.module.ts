@@ -7,13 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist';
 @Module({
   imports: [
     FindingsModule,
-    TypeOrmModule.forRoot({
-      type: "sqljs",
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      autoSave: true,
-      location: 'findings.sqlite',
-      synchronize: true
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { FindingsController } from './findings.controller';
 import { FindingsService } from './findings.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Finding } from './finding.entity';
+import { TenantDBsModule } from '../tenantDBs/tenantDBs.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Finding])],
+  imports: [TenantDBsModule],
   controllers: [FindingsController],
   providers: [FindingsService]
 })

@@ -1,17 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, Inject } from '@nestjs/common';
 import { Finding } from './finding.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { TENANT_DATA_SOURCE } from '../tenantDBs/tenantDBs.module';
+import { threadId } from 'worker_threads';
 
 @Injectable()
 export class FindingsService {
+
+    private readonly findingsRepo: Repository<Finding>
+
     constructor(
-        @InjectRepository(Finding)
-        private findingRepo: Repository<Finding>
-    ) {}
+        @Inject(TENANT_DATA_SOURCE) tenantDataSource : DataSource
+    ) {
+        this.findingsRepo = tenantDataSource.getRepository(Finding);
+    }
 
     async findAll(tenantId : number) : Promise<Finding[]> {
-        return this.findingRepo.find({
+        return this.findingsRepo.find({
             where: {
                 tenantId: tenantId
             },
@@ -22,8 +27,8 @@ export class FindingsService {
     }
 
     async create(finding: Finding) :Promise<Finding> {
-        const newFinding = this.findingRepo.create(finding);
-        return this.findingRepo.save(newFinding);
+        const newFinding = this.findingsRepo.create(finding);
+        return this.findingsRepo.save(newFinding);
     }
 
 } 

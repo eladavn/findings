@@ -12,7 +12,13 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TenantDB]),
+    TypeOrmModule.forRoot({
+      type: "sqljs",
+      entities: [TenantDB],
+      autoSave: true,
+      location: 'tenants.sqlite',
+      synchronize: true
+    })
   ],
   providers: [
     {
@@ -24,11 +30,17 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
       scope: Scope.REQUEST,
       useFactory: async (request : Request, rootDataSource : DataSource) => {
         const tenantDB: TenantDB = await rootDataSource.getRepository(TenantDB).findOne(({ where: { tenantId: parseInt(request.params.tenantId) } }));
+        if (!tenantDB) {
+
+          console.log('No tenant DB found');
+
+        };
+
         const tenantDataSource = new DataSource({
           type: "sqljs",
           entities: [Finding,Resource],
           autoSave: true,
-          location: `findings${tenantDB.dbIndex}.sqlite`,
+          location: `findings.sqlite`, //${tenantDB.dbIndex}.sqlite`,
           synchronize: true
         });
         return tenantDataSource;
@@ -39,5 +51,5 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
     TENANT_DATA_SOURCE
   ]
 })
-export class TenantModule {};
+export class TenantDBsModule {};
 
