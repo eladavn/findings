@@ -2,6 +2,8 @@ import { Body, Controller, Get, Param, Post} from '@nestjs/common';
 import { FindingsService } from './findings.service';
 import { Finding, FindingInTenant } from './finding.entity';
 
+// TODO: The 'tenantId' request param should be a reusable const. It should also be exported and reused in the
+// tenantsDBs module
 @Controller('tenants/:tenantId/findings')
 export class FindingsController {
     constructor(private readonly findingsService: FindingsService) {}
