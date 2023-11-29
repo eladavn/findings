@@ -1,8 +1,14 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, Index } from "typeorm";
+import { Entity, PrimaryColumn, CreateDateColumn, Column, ManyToOne, Index, Check } from "typeorm";
 import { Resource } from "./resource.entity";
 
+export enum Severity {
+    LOW = "low",
+    MEDIUM = "medium",
+    HIGH = "high",
+}
 
 @Entity()
+@Check(`"severity" IN ('${Severity.LOW}', '${Severity.MEDIUM}', '${Severity.HIGH}')`)
 @Index(['tenantId', 'externalId'], { unique: true })
 export class Finding {
 
@@ -13,9 +19,21 @@ export class Finding {
     @PrimaryColumn()
     externalId: string;
 
-     @Column()
+    @Column()
     type: string;
 
+    @Column()
+    title: string;
+
+    @Column()
+    severity : Severity;
+
+    @CreateDateColumn()
+    createdAt : Date;
+
+    @Column()
+    sensor : string;
+ 
     @ManyToOne(() => Resource, (resource) => resource.findings, {
         cascade: true
     })
