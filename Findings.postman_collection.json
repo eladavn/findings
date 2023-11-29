@@ -53,7 +53,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"externalId\": \"lolo\",\r\n        \"type\": \"kkbad\",\r\n        \"resource\":\r\n        {\r\n            \"cloudAccount\": \"bbb\",\r\n            \"uniqueId\": \"sdfs\",\r\n            \"name\": \"moyshe\"\r\n        }\r\n}",
+					"raw": "{\r\n        \"externalId\": \"eee\",\r\n        \"type\": \"kkbad\",\r\n        \"title\" : \"wow\",\r\n        \"severity\": \"high\",\r\n        \"sensor\": \"lula\",\r\n        \"resource\":\r\n        {\r\n            \"cloudAccount\": \"nana\",\r\n            \"uniqueId\": \"qqq\",\r\n            \"name\": \"moyshe\"\r\n        }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
