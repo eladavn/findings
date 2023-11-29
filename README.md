@@ -20,10 +20,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 ## TBDs
-tenantDBs --> registeredTenants
 strictNullChecks
 Add indices
 Error handling
+Remove tests
 
 ## Assumptions
 * Finding.externalId is unique within tenant but not between tenants. So the unique key of a finding is a composite of tenantId + externalId

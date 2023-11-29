@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Finding } from './finding.entity';
 import { DataSource, Repository } from 'typeorm';
-import { TENANT_DATA_SOURCE } from '../tenantDBs/tenantDBs.module';
+import { TENANT_DATA_SOURCE } from '../tenantDBs/registeredTenants.module';
 import { threadId } from 'worker_threads';
 
 @Injectable()

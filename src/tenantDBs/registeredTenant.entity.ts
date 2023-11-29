@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn, Index } from 'typeorm';
 
 @Entity()
-export class TenantDB {
+export class RegisteredTenant {
 
   @PrimaryColumn()
   @Index({ unique: true })

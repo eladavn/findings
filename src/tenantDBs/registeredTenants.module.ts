@@ -6,7 +6,7 @@ import { Request } from 'express';
 import {Finding} from '../findings/finding.entity';
 import {Resource} from '../findings/resource.entity';
 
-import { TenantDB } from './tenantDB.entity';
+import { RegisteredTenant } from './registeredTenant.entity';
 import { assert } from 'console';
 
 export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
@@ -15,9 +15,9 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
   imports: [
     TypeOrmModule.forRoot({
       type: "sqljs",
-      entities: [TenantDB],
+      entities: [RegisteredTenant],
       autoSave: true,
-      location: 'tenants.sqlite',
+      location: 'registered-tenants.sqlite',
       synchronize: true
     }),
   ],
@@ -29,10 +29,10 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
         DataSource,
       ],
       scope: Scope.REQUEST,
-      useFactory: async (request : Request, rootDataSource : DataSource) => {
-        const tenantsRepo = rootDataSource.getRepository(TenantDB);
+      useFactory: async (request : Request, registeredTenantsDataSource : DataSource) => {
+        const tenantsRepo = registeredTenantsDataSource.getRepository(RegisteredTenant);
         const requestTenantId = parseInt(request.params.tenantId);
-        const registeredTenant: TenantDB = await tenantsRepo.findOne(({ where: { tenantId: requestTenantId } }));
+        const registeredTenant: RegisteredTenant = await tenantsRepo.findOne(({ where: { tenantId: requestTenantId } }));
         let dbIndex :number; 
         if (!registeredTenant) {
 
@@ -74,5 +74,5 @@ export const TENANT_DATA_SOURCE = 'TENANT_DATA_SOURCE';
     TENANT_DATA_SOURCE
   ]
 })
-export class TenantDBsModule {};
+export class RegisteredTenantsModule {};
 

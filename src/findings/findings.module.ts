@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { FindingsController } from './findings.controller';
 import { FindingsService } from './findings.service';
-import { TenantDBsModule } from '../tenantDBs/tenantDBs.module';
+import { RegisteredTenantsModule } from '../tenantDBs/registeredTenants.module';
 
 @Module({
-  imports: [TenantDBsModule],
+  imports: [RegisteredTenantsModule],
   controllers: [FindingsController],
   providers: [FindingsService]
 })
