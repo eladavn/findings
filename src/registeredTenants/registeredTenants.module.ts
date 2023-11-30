@@ -41,6 +41,12 @@ async function getDbIndex(request : Request, registeredTenantsDataSource: DataSo
     // (as registration is relevant only for POST request)
     // So the given tenant is not to be found in any of the DBs, so just work
     // with arbitrary DB which would result in standard entity not available behavior
+    //
+    // Note: There is an ugly abstraction leakage here since this module by this logic is aware
+    // of the logic of the findings module by knowing that only with POST of finding a tenant
+    // should be registered. 
+    // A better approach would be to inject a callback which will be implemented by the finding module
+    // and tells whether unfound tenant should be registered.
     return 1;
   }
 
